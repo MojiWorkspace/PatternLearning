@@ -1,3 +1,5 @@
+# All information about program you can read from main menu
+
 from abc import ABC, abstractmethod
 import os
 import sys
@@ -58,6 +60,7 @@ class CircularWindow(Window):
         return '{Circular Window}'
 
 
+# Client's order
 class Order:
     def __init__(self):
         self.rect = 0
@@ -83,6 +86,7 @@ def clear_cmd():
         os.system('cls')
 
 
+# Menu items choosing function
 def select_menu_item(itemlist: list):
     item = int(-1)
     while item not in itemlist:
@@ -108,10 +112,12 @@ def count_input(item):
     return count
 
 
+# Operation for client (Execute producing process)
 def client_operation(factory: Factory):
     print(f'{factory.default_operation()}')
 
 
+# Console UI and Logic
 def client_menu():
     def print_main_menu():
         items = [1, 2, 0]

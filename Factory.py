@@ -117,50 +117,55 @@ def client_operation(factory: Factory):
     print(f'{factory.default_operation()}')
 
 
+def print_main_menu():
+    clear_cmd()
+    print('#############\n# MAIN MENU #\n#############\n\n'
+          'Please choose the operation\n'
+          'Confirm your choice by <Enter>\n\n'
+          '<1> Open the description\n'
+          '<2> Start the factory\n'
+          '<0> Exit\n')
+
+
+def print_order_menu():
+    clear_cmd()
+    print('##############\n# ORDER MENU #\n##############\n\n'
+          '<1> Rectangular windows count (default 0)\n'
+          '<2> Triangular windows count (default 0)\n'
+          '<3> Circular  windows count (default 0)\n'
+          '<4> Order details\n'
+          '<5> Confirm\n'
+          '<0> Back\n')
+
+
+def open_description():
+    clear_cmd()
+    print('This program is based on Factory pattern.\n\n'
+          'Script represents the work of the factory\n'
+          'that produces windows of different shapes:\n'
+          'Rectangular, Triangular, Circular.\n\n'
+          'The client (user) makes an order:\n'
+          '- Shape\n'
+          '- Count\n\n'
+          'One order could contain a number (0 - 100) of windows of each available shape.\n'
+          'Before order confirmation you can read all details.\n'
+          'After order confirmation the producing process will be shown.\n\n'
+          'Press <Enter> to return to main menu')
+
+
 # Console UI and Logic
 def client_menu():
-    def print_main_menu():
-        items = [1, 2, 0]
-        clear_cmd()
-        print('#############\n# MAIN MENU #\n#############\n\n'
-              'Please choose the operation\n'
-              'Confirm your choice by <Enter>\n\n'
-              '<1> Open the description\n'
-              '<2> Start the factory\n'
-              '<0> Exit\n')
+    print_main_menu()
+    items = [1, 2, 0]
+    chosen_operation = int(-1)
+    while chosen_operation != 0:
         chosen_operation = select_menu_item(items)
         if chosen_operation == 1:
-            def open_description():
-                clear_cmd()
-                print('This program is based on Factory pattern.\n\n'
-                      'Script represents the work of the factory\n'
-                      'that produces windows of different shapes:\n'
-                      'Rectangular, Triangular, Circular.\n\n'
-                      'The client (user) makes an order:\n'
-                      '- Shape\n'
-                      '- Count\n\n'
-                      'One order could contain a number (0 - 100) of windows of each available shape.\n'
-                      'Before order confirmation you can read all details.\n'
-                      'After order confirmation the producing process will be shown.\n\n'
-                      'Press <Enter> to return to main menu')
-
             open_description()
-            chosen_operation = input()
+            input()
             print_main_menu()
-
         elif chosen_operation == 2:
             def start_factory_menu():
-
-                def print_order_menu():
-                    clear_cmd()
-                    print('##############\n# ORDER MENU #\n##############\n\n'
-                          '<1> Rectangular windows count (default 0)\n'
-                          '<2> Triangular windows count (default 0)\n'
-                          '<3> Circular  windows count (default 0)\n'
-                          '<4> Order details\n'
-                          '<5> Confirm\n'
-                          '<0> Back\n')
-
                 order = Order()
                 factory_menu_items = [1, 2, 3, 4, 5, 0]
                 print_order_menu()
@@ -182,24 +187,24 @@ def client_menu():
                     elif chosen_operation == 4:
                         if order.rect == 0 and order.tria == 0 and order.circ == 0:
                             print('\nYour order is empty\nPress <Enter> to continue')
-                            chosen_operation = input()
+                            input()
                             print_order_menu()
                         else:
                             order.show_details()
                             print('Press <Enter to continue>')
-                            chosen_operation = input()
+                            input()
                             print_order_menu()
 
                 if chosen_operation == 5:
                     if order.rect == 0 and order.tria == 0 and order.circ == 0:
                         print('\nYour order is empty\nPress <Enter> to continue')
-                        chosen_operation = input()
+                        input()
                         start_factory_menu()
                     else:
                         clear_cmd()
                         order.show_details()
                         print('Press <Enter> to start the Factory')
-                        chosen_operation = input()
+                        input()
                         print('Producing...\n')
                         if order.rect > 0:
                             for window in range(order.rect):
@@ -217,7 +222,7 @@ def client_menu():
                                 time.sleep(0.25)
                             print('\n')
                         print(f'{current_datetime()}\nProducing complete\n\nPress <Enter> to continue')
-                        chosen_operation = input()
+                        input()
                         print_main_menu()
 
                 elif chosen_operation == 0:
@@ -225,12 +230,9 @@ def client_menu():
 
             start_factory_menu()
 
-        elif chosen_operation == 0:
-            clear_cmd()
-            print('Program shutdown')
-            sys.exit()
-
-    print_main_menu()
+    clear_cmd()
+    print('Program shutdown')
+    sys.exit()
 
 
 if __name__ == "__main__":

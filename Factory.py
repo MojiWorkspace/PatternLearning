@@ -153,7 +153,72 @@ def open_description():
           'Press <Enter> to return to main menu')
 
 
-# Console UI and Logic
+# Function for making an order
+def start_factory_menu():
+    order = Order()
+    factory_menu_items = [1, 2, 3, 4, 5, 0]
+    print_order_menu()
+    chosen_operation = int(-1)
+    while chosen_operation != 5 and chosen_operation != 0:
+        chosen_operation = select_menu_item(factory_menu_items)
+        if chosen_operation == 1:
+            count = count_input(1)
+            order.rect = count
+            print_order_menu()
+        elif chosen_operation == 2:
+            count = count_input(2)
+            order.tria = count
+            print_order_menu()
+        elif chosen_operation == 3:
+            count = count_input(3)
+            order.circ = count
+            print_order_menu()
+        elif chosen_operation == 4:
+            if order.rect == 0 and order.tria == 0 and order.circ == 0:
+                print('\nYour order is empty\nPress <Enter> to continue')
+                input()
+                print_order_menu()
+            else:
+                order.show_details()
+                print('Press <Enter to continue>')
+                input()
+                print_order_menu()
+
+    if chosen_operation == 5:
+        if order.rect == 0 and order.tria == 0 and order.circ == 0:
+            print('\nYour order is empty\nPress <Enter> to continue')
+            input()
+            start_factory_menu()
+        else:
+            clear_cmd()
+            order.show_details()
+            print('Press <Enter> to start the Factory')
+            input()
+            print('Producing...\n')
+            if order.rect > 0:
+                for window in range(order.rect):
+                    client_operation(RectangularWindowConveyor())
+                    time.sleep(0.25)
+                print('\n')
+            if order.tria > 0:
+                for window in range(order.tria):
+                    client_operation(TriangularWindowConveyor())
+                    time.sleep(0.25)
+                print('\n')
+            if order.circ > 0:
+                for window in range(order.circ):
+                    client_operation(CircularWindowConveyor())
+                    time.sleep(0.25)
+                print('\n')
+            print(f'{current_datetime()}\nProducing complete\n\nPress <Enter> to continue')
+            input()
+            print_main_menu()
+
+    elif chosen_operation == 0:
+        print_main_menu()
+
+
+# Console UI
 def client_menu():
     print_main_menu()
     items = [1, 2, 0]
@@ -165,69 +230,6 @@ def client_menu():
             input()
             print_main_menu()
         elif chosen_operation == 2:
-            def start_factory_menu():
-                order = Order()
-                factory_menu_items = [1, 2, 3, 4, 5, 0]
-                print_order_menu()
-                chosen_operation = int(-1)
-                while chosen_operation != 5 and chosen_operation != 0:
-                    chosen_operation = select_menu_item(factory_menu_items)
-                    if chosen_operation == 1:
-                        count = count_input(1)
-                        order.rect = count
-                        print_order_menu()
-                    elif chosen_operation == 2:
-                        count = count_input(2)
-                        order.tria = count
-                        print_order_menu()
-                    elif chosen_operation == 3:
-                        count = count_input(3)
-                        order.circ = count
-                        print_order_menu()
-                    elif chosen_operation == 4:
-                        if order.rect == 0 and order.tria == 0 and order.circ == 0:
-                            print('\nYour order is empty\nPress <Enter> to continue')
-                            input()
-                            print_order_menu()
-                        else:
-                            order.show_details()
-                            print('Press <Enter to continue>')
-                            input()
-                            print_order_menu()
-
-                if chosen_operation == 5:
-                    if order.rect == 0 and order.tria == 0 and order.circ == 0:
-                        print('\nYour order is empty\nPress <Enter> to continue')
-                        input()
-                        start_factory_menu()
-                    else:
-                        clear_cmd()
-                        order.show_details()
-                        print('Press <Enter> to start the Factory')
-                        input()
-                        print('Producing...\n')
-                        if order.rect > 0:
-                            for window in range(order.rect):
-                                client_operation(RectangularWindowConveyor())
-                                time.sleep(0.25)
-                            print('\n')
-                        if order.tria > 0:
-                            for window in range(order.tria):
-                                client_operation(TriangularWindowConveyor())
-                                time.sleep(0.25)
-                            print('\n')
-                        if order.circ > 0:
-                            for window in range(order.circ):
-                                client_operation(CircularWindowConveyor())
-                                time.sleep(0.25)
-                            print('\n')
-                        print(f'{current_datetime()}\nProducing complete\n\nPress <Enter> to continue')
-                        input()
-                        print_main_menu()
-
-                elif chosen_operation == 0:
-                    print_main_menu()
-
             start_factory_menu()
 
     clear_cmd()

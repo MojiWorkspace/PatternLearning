@@ -8,7 +8,6 @@ from abc import ABC, abstractmethod
 import os
 import sys
 import platform
-import time
 import datetime
 
 
@@ -125,9 +124,16 @@ class House:
         self.parts.append(part)
 
     def list_parts(self):
+        clear_cmd()
         print(f'The house is built from the following parts:')
         for part in range(len(self.parts)):
             print(self.parts[part])
+        print(f'\nBuilding complete: {current_datetime()}')
+
+
+def current_datetime():
+    now = datetime.datetime.now()
+    return now.strftime('%Y-%m-%d %H:%M:%S')
 
 
 def clear_cmd():
@@ -150,7 +156,11 @@ def select_menu_item(itemlist: list):
     return item
 
 
-def choose_roof():
+def client_ui(team: list):
+    choose_roof(team)
+
+
+def choose_roof(team: list):
     items = [1, 2, 3, 0]
     clear_cmd()
     print('Please choose the material of the roof\n'
@@ -160,21 +170,24 @@ def choose_roof():
           '<3> Jelly\n'
           '<0> Exit\n')
     chosen_material = int(-1)
-    while chosen_material != 0:
+    while chosen_material < 0 or chosen_material > 3:
         chosen_material = select_menu_item(items)
         if chosen_material == 1:
-            pass
+            team[0].make_roof()
+            choose_walls(team)
         elif chosen_material == 2:
-            pass
+            team[1].make_roof()
+            choose_walls(team)
         elif chosen_material == 3:
-            pass
+            team[2].make_roof()
+            choose_walls(team)
+        elif chosen_material == 0:
+            clear_cmd()
+            print('Program shutdown')
+            sys.exit()
 
-    clear_cmd()
-    print('Program shutdown')
-    sys.exit()
 
-
-def choose_walls():
+def choose_walls(team: list):
     items = [1, 2, 3, 0]
     clear_cmd()
     print('Please choose the material of the walls\n'
@@ -182,21 +195,26 @@ def choose_walls():
           '<1> Stone\n'
           '<2> Wood\n'
           '<3> Jelly\n'
-          '<0> Back\n')
+          '<0> Exit\n')
     chosen_material = int(-1)
-    while chosen_material != 0:
+    while chosen_material < 0 or chosen_material > 3:
         chosen_material = select_menu_item(items)
         if chosen_material == 1:
-            pass
+            team[0].make_walls()
+            choose_door(team)
         elif chosen_material == 2:
-            pass
+            team[1].make_walls()
+            choose_door(team)
         elif chosen_material == 3:
-            pass
+            team[2].make_walls()
+            choose_door(team)
+        elif chosen_material == 0:
+            clear_cmd()
+            print('Program shutdown')
+            sys.exit()
 
-    choose_roof()
 
-
-def choose_door():
+def choose_door(team: list):
     items = [1, 2, 3, 0]
     clear_cmd()
     print('Please choose the material of the door\n'
@@ -204,21 +222,26 @@ def choose_door():
           '<1> Stone\n'
           '<2> Wood\n'
           '<3> Jelly\n'
-          '<0> Back\n')
+          '<0> Exit\n')
     chosen_material = int(-1)
-    while chosen_material != 0:
+    while chosen_material < 0 or chosen_material > 3:
         chosen_material = select_menu_item(items)
         if chosen_material == 1:
-            pass
+            team[0].make_door()
+            choose_windows(team)
         elif chosen_material == 2:
-            pass
+            team[1].make_door()
+            choose_windows(team)
         elif chosen_material == 3:
-            pass
+            team[2].make_door()
+            choose_windows(team)
+        elif chosen_material == 0:
+            clear_cmd()
+            print('Program shutdown')
+            sys.exit()
 
-    choose_walls()
 
-
-def choose_windows():
+def choose_windows(team: list):
     items = [1, 2, 3, 0]
     clear_cmd()
     print('Please choose the material of the windows\n'
@@ -226,38 +249,39 @@ def choose_windows():
           '<1> Stone\n'
           '<2> Wood\n'
           '<3> Jelly\n'
-          '<0> Back\n')
+          '<0> Exit\n')
     chosen_material = int(-1)
-    while chosen_material != 0:
+    while chosen_material < 0 or chosen_material > 3:
         chosen_material = select_menu_item(items)
         if chosen_material == 1:
-            pass
+            team[0].make_windows()
         elif chosen_material == 2:
-            pass
+            team[1].make_windows()
         elif chosen_material == 3:
-            pass
-
-    choose_door()
+            team[2].make_windows()
+        elif chosen_material == 0:
+            clear_cmd()
+            sys.exit()
 
 
 if __name__ == "__main__":
+    # House initialization
+    house = House()
+
     # Builders initialization
     builder_stone = StoneBuilder()
     builder_wood = WoodenBuilder()
     builder_jelly = JellyBuilder()
 
-    print('Build your own house with STONE, WOOD and JELLY')
+    # Bring builders in team
+    builders = [builder_stone, builder_wood, builder_jelly]
 
-    # Each builder makes different parts for client house
-    builder_wood.make_roof()
-    builder_stone.make_walls()
-    builder_jelly.make_door()
-    builder_jelly.make_windows()
+    # UI
+    client_ui(builders)
 
-    # Build the house based on the configuration
-    house = House()
-    house.parts = builder_wood.house.parts + \
-                  builder_stone.house.parts + \
-                  builder_jelly.house.parts
+    # Build the house
+    for builder in range(len(builders)):
+        house.parts = house.parts + builders[builder].house.parts
 
+    # Show the building result
     house.list_parts()

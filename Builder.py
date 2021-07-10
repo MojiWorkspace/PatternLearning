@@ -46,7 +46,7 @@ class StoneBuilder(Builder):
     @property
     def house(self):
         house = self._house
-        # self.reset()
+        self.reset()
         return house
 
     def make_roof(self):
@@ -73,7 +73,7 @@ class WoodenBuilder(Builder):
     @property
     def house(self):
         house = self._house
-        # self.reset()
+        self.reset()
         return house
 
     def make_roof(self):
@@ -100,7 +100,7 @@ class JellyBuilder(Builder):
     @property
     def house(self):
         house = self._house
-        # self.reset()
+        self.reset()
         return house
 
     def make_roof(self):

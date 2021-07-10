@@ -261,6 +261,7 @@ def choose_windows(team: list):
             team[2].make_windows()
         elif chosen_material == 0:
             clear_cmd()
+            print('Program shutdown')
             sys.exit()
 
 

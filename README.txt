@@ -6,6 +6,7 @@ Available:
 - Abstract Factory (Abstract_Factory.py)
 - Builder (Builder.py)
 - Builder with Director (Builder_Director.py)
+- Prototype (Prototype.py)
 
 In progress:
 

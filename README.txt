@@ -7,6 +7,7 @@ Available:
 - Builder (Builder.py)
 - Builder with Director (Builder_Director.py)
 - Prototype (Prototype.py)
+- Singleton (Singleton.py)
 
 In progress:
 

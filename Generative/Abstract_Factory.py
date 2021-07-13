@@ -3,6 +3,7 @@
 # that produces creatures from SAME MATERIAL parts
 # Client (user) chooses the material from main menu and observe the shown process
 
+
 from abc import ABC, abstractmethod
 import os
 import sys
@@ -241,6 +242,7 @@ if __name__ == "__main__":
         elif chosen_material == 3:
             clear_cmd()
             client_operation(MagicFactory())
+
     clear_cmd()
     print('Program shutdown')
     sys.exit()

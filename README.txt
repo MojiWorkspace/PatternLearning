@@ -11,6 +11,7 @@ Available:
 - Singleton (Singleton.py)
 
 # Structural patterns:
+- Adapter (Adapter.py)
 
 
 # Behavioral patterns:

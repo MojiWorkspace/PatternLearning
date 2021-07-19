@@ -80,4 +80,3 @@ if __name__ == '__main__':
     sky_ad = SkyAdapter()
     car = UserCar(sky_ad)
     car.connect()
-    

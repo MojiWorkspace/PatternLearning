@@ -13,6 +13,7 @@ Available:
 # Structural patterns:
 - Adapter (Adapter.py)
 - Bridge (Bridge.py)
+- Composite (Composite.py)
 
 # Behavioral patterns:
 

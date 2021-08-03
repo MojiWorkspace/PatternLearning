@@ -14,6 +14,7 @@ Available:
 - Adapter (Adapter.py)
 - Bridge (Bridge.py)
 - Composite (Composite.py)
+- Decorator (Decorator.py)
 
 # Behavioral patterns:
 
